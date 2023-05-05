@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: httpd-pod
+  labels:
+    app: my-app
+spec:
+  containers:
+  - name: hello-world-httpd
+    image: divij111/sample-images:hello-world
+    ports:
+    - containerPort: 80
+  nodeSelector:
+    node.kubernetes.io/instance-type: t2.small
