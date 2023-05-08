@@ -1,9 +1,6 @@
-name: Deploy public ec2 to AWS with ALB
+name: Deploy state s3 and Dynamodb table
 
 on:
-  push:
-    branches:
-      - master
   workflow_dispatch:
 
 jobs:
