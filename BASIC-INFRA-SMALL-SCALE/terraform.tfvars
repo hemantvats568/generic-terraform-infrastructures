@@ -51,7 +51,7 @@ frontend_asg_schedule_action_name_downscale = "frontend_asg_schedule_downscale"
 #frontend_asg_recurrence_schedule_downscale = "45 14 * * 1-5"
 frontend_asg_scheduled_desired_capacity = 1
 frontend_asg_scheduling_enabled = false
-public_key_path = "/home/beehyv/public_key.pub"
+public_key_path = "public_key.pub"
 
 #backend asg variables
 backend_ec2_enabled = false
