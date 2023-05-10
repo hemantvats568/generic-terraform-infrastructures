@@ -2,10 +2,6 @@ variable "key_name" {
   type = string
 }
 
-variable "ami"{
-    type = string
-}
-
 variable "instance_type" {
   type = string
 }
@@ -169,4 +165,12 @@ variable "cloudwatch_down_threshold" {
 
 variable "asg_dynamic_scaling_enabled" {
   type = bool
+}
+
+variable "public_key_path" {
+  type = string
+}
+
+variable "s3_iam_profile_name" {
+  type = string
 }

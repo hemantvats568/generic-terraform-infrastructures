@@ -35,12 +35,12 @@ variable "default_root_object" {
     description = "Default File to be served to the cloudfront Example: index.html"
 }
 
-variable "frontend_ec2_enabled" {
-  type = bool
+variable "public_key_path" {
+  type = string
 }
 
-variable "frontend_asg_ami" {
-  type  = string
+variable "frontend_ec2_enabled" {
+  type = bool
 }
 
 variable "frontend_asg_key_name" {
@@ -109,10 +109,6 @@ variable "end_time_downscale" {
 
 variable "backend_ec2_enabled" {
   type = string
-}
-
-variable "backend_asg_ami" {
-  type  = string
 }
 
 variable "backend_asg_key_name" {
@@ -191,10 +187,12 @@ variable "rds_instance_class" {
 }
 variable "db_username" {
   type = string
+  default = ""
   description = "Username for the RDS database"
 }
 variable "db_password" {
   type = string
+  default = ""
   description = "Password for the RDS database"
 }
 
@@ -460,4 +458,8 @@ variable "eks_node_endpoint_private_access" {
 
 variable "nat_gateway" {
   type = bool
+}
+
+variable "s3_bucket_name" {
+  type = string
 }

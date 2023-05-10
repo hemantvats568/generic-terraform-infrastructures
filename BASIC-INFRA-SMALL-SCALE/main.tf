@@ -40,29 +40,28 @@ module "rt" {
 module "s3" {
   source = "./modules/s3"
 
-#  count                     = var.s3_bucket_enabled ? 1 : 0
+  count                     = var.s3_bucket_enabled ? 1 : 0
   bucket_name               = var.bucket_name
   force_destroy             = var.force_destroy
   s3_versioning_enabled     = var.s3_versioning_enabled
 }
 
-module "cloudfront" {
-  count     = var.frontend_cloudfront_enabled ? 1 :0
-  depends_on = [module.s3]
-  source = "./modules/cloudfront"
-
-  regional_bucket_domain_name = module.s3.regional_bucket_domain_name
-  default_root_object = var.default_root_object
-  cloudfront_origin_bucket_arn = module.s3.arn
-  cloudfront_origin_bucket = module.s3.id
-}
+#module "cloudfront" {
+#  count     = var.frontend_cloudfront_enabled ? 1 :0
+#  depends_on = [module.s3]
+#  source = "./modules/cloudfront"
+#
+#  regional_bucket_domain_name = module.s3.regional_bucket_domain_name
+#  default_root_object = var.default_root_object
+#  cloudfront_origin_bucket_arn = module.s3.arn
+#  cloudfront_origin_bucket = module.s3.id
+#}
 
 module "frontend_asg" {
-  depends_on                      = [module.security-group]
+  depends_on                      = [module.security-group, module.iam]
   count                           = var.frontend_ec2_enabled ? 1 : 0
   source                          = "./modules/asg"
   asg_name                        = "frontend_asg"
-  ami                             = var.frontend_asg_ami
   key_name                        = var.frontend_asg_key_name
   instance_type                   = var.frontend_asg_instance_type
   security_group                  = module.security-group[0].public_sg
@@ -105,15 +104,20 @@ module "frontend_asg" {
   cloudwatch_down_period            = var.frontend_cloudwatch_down_period
   cloudwatch_down_threshold         = var.frontend_cloudwatch_down_threshold
   asg_dynamic_scaling_enabled       = var.frontend_asg_dynamic_scaling_enabled
+  public_key_path                   = var.public_key_path
+  s3_iam_profile_name               = module.iam.aws_iam_instance_profile
+}
 
+module "iam" {
+  source = "./modules/iam"
+  s3_bucket_name = var.s3_bucket_name
 }
 
 module "backend_asg" {
-  depends_on                              = [module.security-group]
+  depends_on                              = [module.security-group, module.iam]
   count                                   = var.backend_ec2_enabled ? 1 : 0
   source                                  = "./modules/asg"
   asg_name                                = "backend_asg"
-  ami                                     = var.backend_asg_ami
   key_name                                = var.backend_asg_key_name
   instance_type                           = var.backend_asg_instance_type
   security_group                          = module.security-group[0].private_sg
@@ -157,6 +161,8 @@ module "backend_asg" {
   cloudwatch_down_period            = var.backend_cloudwatch_down_period
   cloudwatch_down_threshold         = var.backend_cloudwatch_down_threshold
   asg_dynamic_scaling_enabled       = var.backend_asg_dynamic_scaling_enabled
+  public_key_path                   = var.public_key_path
+  s3_iam_profile_name               = module.iam.aws_iam_instance_profile
 }
 
 module "security-group" {

@@ -6,9 +6,9 @@ terraform {
         }
     }
     backend s3 {
-        bucket = ""
-        dynamodb_table = ""
-        key = ""
-        region = ""
+        bucket = "beehyvstatebucketforinternalproject"
+        dynamodb_table = "beehyvstatelocktableforinternalproject"
+        key = "aws-starter/"
+        region = "ap-south-1"
     }
 }

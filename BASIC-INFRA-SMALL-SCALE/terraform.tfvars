@@ -38,8 +38,7 @@ frontend_cloudfront_enabled = false
 default_root_object = "index.html"
 
 #frontend asg variables
-frontend_ec2_enabled = false
-frontend_asg_ami = "ami-02238ac43d6385ab3"
+frontend_ec2_enabled = true
 frontend_asg_key_name = "terraform_asg_private_key_frontend"
 frontend_asg_instance_type = "t2.micro"
 frontend_asg_public_ip_enabled = true
@@ -52,10 +51,10 @@ frontend_asg_schedule_action_name_downscale = "frontend_asg_schedule_downscale"
 #frontend_asg_recurrence_schedule_downscale = "45 14 * * 1-5"
 frontend_asg_scheduled_desired_capacity = 1
 frontend_asg_scheduling_enabled = false
+public_key_path = "/home/beehyv/public_key.pub"
 
 #backend asg variables
 backend_ec2_enabled = false
-backend_asg_ami = "ami-02238ac43d6385ab3"
 backend_asg_key_name = "terraform_asg_private_key_backend"
 backend_asg_instance_type = "t2.micro"
 backend_asg_public_ip_enabled = false
@@ -72,6 +71,7 @@ start_time_upscale = "T10:00:00Z"
 end_time_upscale = "T10:15:00Z"
 start_time_downscale = "T10:15:00Z"
 end_time_downscale = "T10:25:00Z"
+
 #asg lb
 internal_lb_enabled = false
 backend_lb_asg_name = "backend-lb"
@@ -110,6 +110,7 @@ frontend_cloudwatch_down_alarm_name = "frontend_cpu_alarm_down"
 frontend_cloudwatch_down_comparison_operator = "LessThanOrEqualToThreshold"
 frontend_cloudwatch_down_period = 120
 frontend_cloudwatch_down_threshold = 30
+s3_bucket_name = "beehyvstatebucketforinternalproject"
 
 backend_asg_policy_upscale = "backend_asg_policy_upscale"
 backend_asg_scaling_adjustment_upscale = 1

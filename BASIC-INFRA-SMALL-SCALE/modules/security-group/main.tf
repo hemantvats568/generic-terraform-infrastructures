@@ -4,23 +4,17 @@ resource "aws_security_group" "public_sg" {
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "TCP"
-    security_groups = [aws_security_group.public_alb_sg.id]
-  }
-  ingress {
-    from_port = 443
-    to_port = 443
-    protocol = "TCP"
-    security_groups = [aws_security_group.public_alb_sg.id]
-  }
-
-  ingress {
     from_port = 22
     to_port = 22
     protocol = "TCP"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 8080
+    to_port = 8080
+    protocol = "TCP"
+    security_groups = [aws_security_group.public_alb_sg.id]
   }
 
   egress {
@@ -68,6 +62,14 @@ resource "aws_security_group" "public_alb_sg" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  ingress {
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   ingress {
     from_port = 443
     to_port = 443

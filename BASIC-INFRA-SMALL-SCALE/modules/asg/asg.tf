@@ -1,23 +1,30 @@
 resource "aws_key_pair" "key_pair" {
-  key_name   = var.key_name
-  public_key = tls_private_key.rsa.public_key_openssh
+  key_name   = "asg_key"
+  public_key = file("${var.public_key_path}")
 }
 
-resource "tls_private_key" "rsa" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
+data "aws_ami" "amazon_linux_2_latest" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
+
+  owners = ["amazon"]
 }
+
 
 resource "aws_launch_configuration" "launch_template" {
   name_prefix = "ec2-template"
 
-  image_id = var.ami
+  image_id = "${data.aws_ami.amazon_linux_2_latest.id}"
   instance_type = var.instance_type
   key_name = aws_key_pair.key_pair.key_name
-
+  iam_instance_profile        = var.s3_iam_profile_name
   security_groups             = [ var.security_group ]
   associate_public_ip_address = var.public_ip_enabled
-  user_data                   = "#!/bin/bash\n\n sudo yum update -y \n sudo yum install -y httpd \n sudo systemctl start httpd \n sudo systemctl enable httpd \n echo '<h1>Hello World </h1>' > /var/www/html/index.html "
+  user_data                   = file("${path.module}/frontend_userdata.sh")
 
   lifecycle {
     create_before_destroy = true

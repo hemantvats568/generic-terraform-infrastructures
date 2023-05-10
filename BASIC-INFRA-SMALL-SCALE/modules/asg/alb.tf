@@ -8,7 +8,7 @@ resource "aws_lb" "lb" {
 
 resource "aws_lb_target_group" "lb_tg" {
   name     = var.lb_tg_asg_name
-  port     = 80
+  port     = 8080
   protocol = "HTTP"
   vpc_id   = var.vpc_id
   target_type = "instance"
@@ -16,7 +16,7 @@ resource "aws_lb_target_group" "lb_tg" {
 
 resource "aws_lb_listener" "lb_listener" {
   load_balancer_arn = aws_lb.lb.arn
-  port              = "80"
+  port              = "8080"
   protocol          = "HTTP"
 
   default_action {

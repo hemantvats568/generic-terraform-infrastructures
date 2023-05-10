@@ -9,9 +9,11 @@ variable "db_engine_version" {
 }
 variable "db_username" {
   type = string
+  default = ""
 }
 variable "db_password" {
   type = string
+  default = ""
 }
 
 variable "rds_instance_class" {
