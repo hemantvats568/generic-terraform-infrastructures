@@ -37,6 +37,7 @@ variable "default_root_object" {
 
 variable "public_key_path" {
   type = string
+  sensitive = true
 }
 
 variable "frontend_ec2_enabled" {
