@@ -1,5 +1,5 @@
 resource "aws_key_pair" "key_pair" {
-  key_name   = "asg_key"
+  key_name   = var.key_name
   public_key = file("${var.public_key_path}")
 }
 
@@ -24,7 +24,7 @@ resource "aws_launch_configuration" "launch_template" {
   iam_instance_profile        = var.s3_iam_profile_name
   security_groups             = [ var.security_group ]
   associate_public_ip_address = var.public_ip_enabled
-  user_data                   = file("${path.module}/frontend_userdata.sh")
+  user_data                   = file("${path.module}/${var.user_data}")
 
   lifecycle {
     create_before_destroy = true

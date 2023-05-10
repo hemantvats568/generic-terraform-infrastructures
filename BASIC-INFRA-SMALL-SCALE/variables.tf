@@ -9,12 +9,12 @@ variable "tenancy" {
 }
 
 variable "bucket_name" {
-  type = string
+  type        = string
   description = "S3 Bucket Name"
 }
 
 variable "s3_bucket_enabled" {
-  type  = bool
+  type = bool
 }
 
 variable "s3_versioning_enabled" {
@@ -22,7 +22,7 @@ variable "s3_versioning_enabled" {
 }
 
 variable "force_destroy" {
-  type = bool
+  type        = bool
   description = "S3 Bucket Force Destroy"
 }
 
@@ -31,12 +31,12 @@ variable "frontend_cloudfront_enabled" {
 }
 
 variable "default_root_object" {
-    type = string
-    description = "Default File to be served to the cloudfront Example: index.html"
+  type        = string
+  description = "Default File to be served to the cloudfront Example: index.html"
 }
 
 variable "public_key_path" {
-  type = string
+  type      = string
   sensitive = true
 }
 
@@ -89,7 +89,12 @@ variable "frontend_asg_scheduled_desired_capacity" {
 }
 
 variable "frontend_asg_scheduling_enabled" {
-  type  = bool
+  type = bool
+}
+
+variable "frontend_user_data" {
+  type    = string
+  default = "frontend_userdata.sh"
 }
 
 variable "start_time_upscale" {
@@ -137,6 +142,11 @@ variable "backend_asg_min_size" {
   type = number
 }
 
+variable "backend_user_data" {
+  type    = string
+  default = "backend_userdata.sh"
+}
+
 variable "backend_asg_schedule_action_name_upscale" {
   type = string
 }
@@ -158,12 +168,12 @@ variable "backend_asg_scheduled_desired_capacity" {
 }
 
 variable "backend_asg_scheduling_enabled" {
-  type  = bool
+  type = bool
 }
 
 variable "subnet_type" {
   description = "Which route table should be added to the specified subnet"
-  type = map(string)
+  type        = map(string)
 }
 
 variable "subnet_names" {
@@ -179,48 +189,44 @@ variable "rds_enabled" {
 }
 
 variable "rds_instance_name" {
-  type = string
+  type        = string
   description = "Name of the RDS database"
 }
 variable "rds_instance_class" {
-  type = string
+  type        = string
   description = "RDS instance type"
 }
 variable "db_username" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Username for the RDS database"
 }
 variable "db_password" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Password for the RDS database"
 }
 
 variable "rds_publicly_accessible_enabled" {
-  type = bool
+  type        = bool
   description = "Public access for the RDS database"
 }
 variable "allocated_db_storage" {
-  type = number
+  type        = number
   description = "Allocation of Storage for RDS database"
 }
 variable "db_engine_name" {
-  type = string
+  type        = string
   description = "Engine name for the RDS database"
 }
 variable "db_engine_version" {
-  type = string
+  type        = string
   description = "Engine version for the RDS database"
 }
 variable "db_port" {
   type = number
 }
 variable "skip_db_final_snapshot" {
-  type = bool
-}
-
-variable "internal_lb_enabled" {
   type = bool
 }
 
@@ -240,7 +246,13 @@ variable "frontend_lb_tg_asg_name" {
   type = string
 }
 
+variable "frontend_tg_port" {
+  type = string
+}
 
+variable "frontend_listener_port" {
+  type = string
+}
 variable "frontend_asg_policy_upscale" {
   type = string
 }
@@ -305,6 +317,14 @@ variable "frontend_cloudwatch_down_threshold" {
   type = number
 }
 
+
+variable "backend_tg_port" {
+  type = string
+}
+
+variable "backend_listener_port" {
+  type = string
+}
 
 variable "backend_asg_policy_upscale" {
   type = string

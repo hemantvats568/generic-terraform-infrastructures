@@ -1,4 +1,4 @@
-name: Deploy infra and application monolith
+name: Deploy infra and application
 
 on:
   workflow_dispatch:
@@ -23,6 +23,9 @@ jobs:
 
       - name: Terraform init,plan and apply
         working-directory: ./BASIC-INFRA-SMALL-SCALE
+        env:
+          TF_VAR_db_password: ${{ secrets.TF_VAR_db_password }}
+          TF_VAR_db_username: ${{ secrets.TF_VAR_db_username }}
         run: |
           terraform init
           terraform plan

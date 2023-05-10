@@ -1,4 +1,4 @@
-name: Destroy monolith application and infra
+name: Destroy application and infra
 
 on:
   workflow_dispatch:

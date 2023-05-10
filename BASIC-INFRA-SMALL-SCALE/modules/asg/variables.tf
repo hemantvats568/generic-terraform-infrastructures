@@ -174,3 +174,15 @@ variable "public_key_path" {
 variable "s3_iam_profile_name" {
   type = string
 }
+
+variable "user_data" {
+  type = string
+}
+
+variable "tg_port" {
+  type = string
+}
+
+variable "listener_port" {
+  type = string
+}
