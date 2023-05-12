@@ -38,7 +38,7 @@ frontend_cloudfront_enabled = false
 default_root_object = "index.html"
 
 #frontend asg variables
-frontend_ec2_enabled = true
+frontend_ec2_enabled = false
 frontend_asg_key_name = "terraform_asg_private_key_frontend"
 frontend_asg_instance_type = "t2.micro"
 frontend_asg_public_ip_enabled = true
@@ -146,7 +146,7 @@ ecs_memory_value = 4096
 ecs_service_name = "ecs-first-task-defination-service"
 
 #eks variables
-eks_enabled = false
+eks_enabled = true
 eks_cluster_name = "new_eks_cluster"
 eks_node_group_name = "eks_node_group"
 eks_desired_num_of_nodes = 1

@@ -4,6 +4,7 @@ resource "aws_subnet" "subnet" {
   availability_zone       = var.availability_zone
   tags = {
     Name = var.subnet_name
+    "kubernetes.io/role/elb" = 1
   }
 }
 

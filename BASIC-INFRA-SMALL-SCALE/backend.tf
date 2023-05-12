@@ -8,7 +8,7 @@ terraform {
     backend s3 {
         bucket = "beehyvstatebucketforinternalproject"
         dynamodb_table = "beehyvstatelocktableforinternalproject"
-        key = "aws-starter/"
+        key = "aws-starter/terraform.tfstate"
         region = "ap-south-1"
     }
 }

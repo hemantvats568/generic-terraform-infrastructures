@@ -14,9 +14,9 @@ output "lbc_iam_policy" {
 data "terraform_remote_state" "eks" {
   backend = "s3"
   config = {
-    bucket = "terraform-starter-project-bucket"
-    key    = "s3/terraform.tfstate"
-    region = "us-east-2"
+    bucket = "beehyvstatebucketforinternalproject"
+    key    = "aws-starter/terraform.tfstate"
+    region = "ap-south-1"
   }
 }
 

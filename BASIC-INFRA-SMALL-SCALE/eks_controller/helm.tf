@@ -6,7 +6,7 @@ data "aws_eks_cluster_auth" "cluster" {
 provider "helm" {
   kubernetes {
     host                   = data.terraform_remote_state.eks.outputs.cluster_endpoint
-    cluster_ca_certificate = base64decode(data.terraform_remote_state.eks.outputs.cluster_certificate_authority_data[0].data)
+    cluster_ca_certificate = base64decode(data.terraform_remote_state.eks.outputs.cluster_certificate_authority_data["data"])
     token                  = data.aws_eks_cluster_auth.cluster.token
   }
 }
@@ -47,7 +47,7 @@ resource "helm_release" "loadbalancer_controller" {
 
   set {
     name  = "region"
-    value = "us-east-2"
+    value = "ap-south-1"
   }
 
   set {
