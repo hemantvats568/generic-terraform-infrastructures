@@ -1,4 +1,4 @@
-name: Deploy infra and application
+name: Deploy infra and application multi tier
 
 on:
   workflow_dispatch:

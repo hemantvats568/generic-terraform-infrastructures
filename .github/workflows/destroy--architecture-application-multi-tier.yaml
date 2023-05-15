@@ -1,4 +1,4 @@
-name: Destroy application and infra
+name: Destroy application and infra multi tier
 
 on:
   workflow_dispatch:
