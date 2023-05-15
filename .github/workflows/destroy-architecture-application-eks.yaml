@@ -1,4 +1,4 @@
-name: Destroy application and infra
+name: Destroy application and infra eks
 
 on:
   workflow_dispatch:
@@ -32,7 +32,7 @@ jobs:
       - name: get eks context
         run: aws eks update-kubeconfig --name new_eks_cluster
 
-      - name: install application (2048 in this case)
+      - name: delete application (2048 in this case)
         run: |
           kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.7/docs/examples/2048/2048_full.yaml
 
