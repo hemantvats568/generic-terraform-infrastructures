@@ -37,6 +37,12 @@ force_destroy = true
 frontend_cloudfront_enabled = false
 default_root_object = "index.html"
 
+#common variables for frontend asg & backend asg 
+start_time_upscale = "T10:00:00Z"
+end_time_upscale = "T10:15:00Z"
+start_time_downscale = "T10:15:00Z"
+end_time_downscale = "T10:25:00Z"
+
 #frontend asg variables
 frontend_ec2_enabled = true
 frontend_asg_key_name = "terraform_asg_private_key_frontend"
@@ -52,46 +58,6 @@ frontend_asg_schedule_action_name_downscale = "frontend_asg_schedule_downscale"
 frontend_asg_scheduled_desired_capacity = 1
 frontend_asg_scheduling_enabled = false
 public_key_path = "public_key.pub"
-
-#backend asg variables
-backend_ec2_enabled = false
-backend_asg_key_name = "terraform_asg_private_key_backend"
-backend_asg_instance_type = "t2.micro"
-backend_asg_public_ip_enabled = false
-backend_asg_desired_capacity = 1
-backend_asg_max_size = 2
-backend_asg_min_size = 1
-backend_asg_schedule_action_name_upscale = "backend_asg_schedule_upscale"
-backend_asg_schedule_action_name_downscale = "backend_asg_schedule_downscale"
-#backend_asg_recurrence_schedule_upscale = "15 14 * * 1-5"
-#backend_asg_recurrence_schedule_downscale = "45 14 * * 1-5"
-backend_asg_scheduled_desired_capacity = 2
-backend_asg_scheduling_enabled = false
-start_time_upscale = "T10:00:00Z"
-end_time_upscale = "T10:15:00Z"
-start_time_downscale = "T10:15:00Z"
-end_time_downscale = "T10:25:00Z"
-
-#asg lb
-internal_lb_enabled = false
-backend_lb_asg_name = "backend-lb"
-backend_lb_tg_asg_name = "backend-lb-tg"
-frontend_lb_asg_name = "frontend-lb"
-frontend_lb_tg_asg_name = "frontend-lb-tg"
-
-#rds variables
-rds_enabled = false
-rds_instance_name = "mydb"
-rds_instance_class = "db.t2.micro"
-rds_publicly_accessible_enabled = false
-allocated_db_storage = 10
-db_engine_name = "mysql"
-db_engine_version = 5.7
-db_port = 3306
-skip_db_final_snapshot = true
-
-
-
 
 frontend_asg_policy_upscale = "frontend_asg_policy_upscale"
 frontend_asg_scaling_adjustment_upscale = 1
@@ -110,7 +76,23 @@ frontend_cloudwatch_down_alarm_name = "frontend_cpu_alarm_down"
 frontend_cloudwatch_down_comparison_operator = "LessThanOrEqualToThreshold"
 frontend_cloudwatch_down_period = 120
 frontend_cloudwatch_down_threshold = 30
-s3_bucket_name = "beehyvstatebucketforinternalproject"
+
+frontend_asg_dynamic_scaling_enabled = false
+
+#backend asg variables
+backend_ec2_enabled = false
+backend_asg_key_name = "terraform_asg_private_key_backend"
+backend_asg_instance_type = "t2.micro"
+backend_asg_public_ip_enabled = false
+backend_asg_desired_capacity = 1
+backend_asg_max_size = 2
+backend_asg_min_size = 1
+backend_asg_schedule_action_name_upscale = "backend_asg_schedule_upscale"
+backend_asg_schedule_action_name_downscale = "backend_asg_schedule_downscale"
+#backend_asg_recurrence_schedule_upscale = "15 14 * * 1-5"
+#backend_asg_recurrence_schedule_downscale = "45 14 * * 1-5"
+backend_asg_scheduled_desired_capacity = 2
+backend_asg_scheduling_enabled = false
 
 backend_asg_policy_upscale = "backend_asg_policy_upscale"
 backend_asg_scaling_adjustment_upscale = 1
@@ -130,9 +112,28 @@ backend_cloudwatch_down_comparison_operator = "LessThanOrEqualToThreshold"
 backend_cloudwatch_down_period = 120
 backend_cloudwatch_down_threshold = 30
 
-frontend_asg_dynamic_scaling_enabled = false
 backend_asg_dynamic_scaling_enabled = false
 
+#asg lb for backend. For frontend it is always enabled
+internal_lb_enabled = false
+backend_lb_asg_name = "backend-lb"
+backend_lb_tg_asg_name = "backend-lb-tg"
+frontend_lb_asg_name = "frontend-lb"
+frontend_lb_tg_asg_name = "frontend-lb-tg"
+
+#rds variables
+rds_enabled = false
+rds_instance_name = "mydb"
+rds_instance_class = "db.t2.micro"
+rds_publicly_accessible_enabled = false
+allocated_db_storage = 10
+db_engine_name = "mysql"
+db_engine_version = 5.7
+db_port = 3306
+skip_db_final_snapshot = true
+
+#iam variables
+s3_bucket_name = "beehyvstatebucketforinternalproject"
 
 #ecs variables
 ecs_enabled = false

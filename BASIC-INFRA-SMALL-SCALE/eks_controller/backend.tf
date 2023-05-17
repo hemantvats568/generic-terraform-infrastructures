@@ -19,9 +19,9 @@ terraform {
     }
   }
   backend s3 {
-    bucket         = "terraform-starter-project-bucket"
-    dynamodb_table = "terraform-state-lock-dynamodb"
+    bucket         = "beehyvstatebucketforinternalproject"
+    dynamodb_table = "beehyvstatelocktableforinternalproject"
     key            = "controller/terraform.tfstate"
-    region         = "us-east-2"
+    region         = "ap-south-1"
   }
 }
