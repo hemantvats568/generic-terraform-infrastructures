@@ -4,6 +4,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "tfstate-bucket" {
   bucket = var.state_bucket_name
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_public_access_block" "example" {
